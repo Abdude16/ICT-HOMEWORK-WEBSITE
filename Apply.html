@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Application Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .application-container {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .name-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #ffd700;
+      outline: none;
+    }
+
+    .add-student-btn {
+      background-color: #ffd700;
+      color: #333;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    .remove-student-btn {
+      background-color: #dc3545;
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #ffd700;
+      color: #333;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover, .add-student-btn:hover {
+      background-color: #ccac00;
+    }
+  </style>
+</head>
+<body>
+  <div class="application-container">
+    <h2>School Application Form</h2>
+    <form id="applicationForm">
+      <div class="section">
+        <h3>Parent/Guardian Information</h3>
+        <div class="name-group">
+          <div class="form-group">
+            <label for="parentFirstName">First Name</label>
+            <input type="text" id="parentFirstName" name="parentFirstName" required>
+          </div>
+          <div class="form-group">
+            <label for="parentLastName">Last Name</label>
+            <input type="text" id="parentLastName" name="parentLastName" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Student Information</h3>
+        <div id="studentsContainer">
+          <div class="student-section">
+            <div class="name-group">
+              <div class="form-group">
+                <label for="studentFirstName1">Student First Name</label>
+                <input type="text" id="studentFirstName1" name="studentFirstName1" required>
+              </div>
+              <div class="form-group">
+                <label for="studentLastName1">Student Last Name</label>
+                <input type="text" id="studentLastName1" name="studentLastName1" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="dob1">Date of Birth</label>
+              <input type="date" id="dob1" name="dob1" required>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="add-student-btn" onclick="addStudent()">+ Add Another Student</button>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit Application</button>
+    </form>
+  </div>
+
+  <script>
+    let studentCount = 1;
+
+    function addStudent() {
+      studentCount++;
+      const container = document.getElementById('studentsContainer');
+      const studentSection = document.createElement('div');
+      studentSection.className = 'student-section';
+      studentSection.innerHTML = `
+        <div class="name-group">
+          <div class="form-group">
+            <label for="studentFirstName${studentCount}">Student First Name</label>
+            <input type="text" id="studentFirstName${studentCount}" name="studentFirstName${studentCount}" required>
+          </div>
+          <div class="form-group">
+            <label for="studentLastName${studentCount}">Student Last Name</label>
+            <input type="text" id="studentLastName${studentCount}" name="studentLastName${studentCount}" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dob${studentCount}">Date of Birth</label>
+          <input type="date" id="dob${studentCount}" name="dob${studentCount}" required>
+        </div>
+        <button type="button" class="remove-student-btn" onclick="removeStudent(this)">Remove Student</button>
+      `;
+      container.appendChild(studentSection);
+    }
+
+    function removeStudent(button) {
+      button.parentElement.remove();
+    }
+
+    document.getElementById('applicationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Application submitted successfully!');
+    });
+  </script>
+</body>
+</html>
